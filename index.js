@@ -1,8 +1,8 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 mongoose.set('strictQuery', true);
 
-const app = express();
 
 async function mongoConnection() {
 	const endpoint = 'mongodb+srv://sheriffderek:SDdatabase@my-cluster.mgsbxby.mongodb.net/monsters-app';
@@ -15,32 +15,50 @@ const monsterSchema = mongoose.Schema({
 	color: String,
 });
 const Monster = mongoose.model('Monster', monsterSchema);
+console.log('test.........');
 
-// const bunchy = new Monster( {name: "Bunchy", color: "purple"} );
-// console.log(bunchy);
-// bunchy.save();
+
+// ========================
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 
 
 app.get('/', async function(request, response) {
 
 	const monsters = await Monster.find();
-	
 
-	Monster.findByIdAndDelete("639f87867b0a9c04714d1f2b");
+
+	// Monster.findByIdAndDelete("639f87867b0a9c04714d1f2b");
 
 	console.log(monsters);
 
-	response.send(monsters);
+	const form = `
+		<form action='/add' method='POST'>
+			<input type='text' name='name' />
+			<button type='submit'>Submit</button>
+		</form>
+	`;
+
+	response.send(form);
 });
 
-app.get('/create/:name', function(request, response) {
+app.post('/add', async function(request, response) {
+	console.log(request.body);
 
-	const monster = new Monster( {name: request.params.name, color: undefined} );
-	console.log(monster);
-	monster.save();
+	const monster = new Monster(request.body); // { }
+	await monster.save();
 
-	response.send('test');
+	response.redirect('/');
 });
 
+app.get('/posts', async function(request, response) {
+	const url = 'https://perpetual.education/wp-json/wp/v2/posts';
+	const data = await fetch(url);
+	const json = await data.json();
+	response.send(json);
+});
 
 app.listen(2000);
