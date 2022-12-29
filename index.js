@@ -1,7 +1,10 @@
+import * as dotenv from 'dotenv'
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 mongoose.set('strictQuery', true);
+
+dotenv.config();
 
 
 async function mongoConnection() {
@@ -61,4 +64,4 @@ app.get('/posts', async function(request, response) {
 	response.send(json);
 });
 
-app.listen(2000);
+app.listen(PORT);
