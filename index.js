@@ -8,7 +8,9 @@ dotenv.config();
 
 
 async function mongoConnection() {
-	const endpoint = 'mongodb+srv://sheriffderek:SDdatabase@my-cluster.mgsbxby.mongodb.net/monsters-app';
+	// mongodb://${{ MONGOUSER }}:${{ MONGOPASSWORD }}@${{ MONGOHOST }}:${{ MONGOPORT }}
+	// const endpoint = 'mongodb+srv://sheriffderek:SDdatabase@my-cluster.mgsbxby.mongodb.net/monsters-app';
+	const endpoint = 'mongodb://mongo:gUJLuTAsI3P1vdJWStPm@containers-us-west-59.railway.app:5616';
 	await mongoose.connect(endpoint);
 }
 mongoConnection().catch(err => console.log(err));
