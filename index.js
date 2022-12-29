@@ -45,9 +45,17 @@ app.get('/', async function(request, response) {
 			<input type='text' name='name' />
 			<button type='submit'>Submit</button>
 		</form>
+
+		<a href='/'>Add</a>, <a href='monsters'>Monsters</a>
 	`;
 
 	response.send(form);
+});
+
+app.get('/monsters', async function(request, response) {
+
+	
+	
 });
 
 app.post('/add', async function(request, response) {
