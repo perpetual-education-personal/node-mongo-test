@@ -52,10 +52,12 @@ app.get('/', async function(request, response) {
 	response.send(form);
 });
 
-app.get('/monsters', async function(request, response) {
+app.get('/monsters', function(request, response) {
 
-	
-	
+	Monster.find({}, function(error, monsters) {
+		response.send(monsters);
+	});
+
 });
 
 app.post('/add', async function(request, response) {
