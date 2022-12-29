@@ -64,4 +64,4 @@ app.get('/posts', async function(request, response) {
 	response.send(json);
 });
 
-app.listen(PORT);
+app.listen(process.env.PORT);
