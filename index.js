@@ -1,10 +1,10 @@
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 mongoose.set('strictQuery', true);
-
-dotenv.config();
 
 
 async function mongoConnection() {
@@ -28,6 +28,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use( cors() );
 
 
 
